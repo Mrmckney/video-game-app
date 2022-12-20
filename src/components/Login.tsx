@@ -1,4 +1,6 @@
-import { useContext, useState } from 'react'
+import { ChangeEvent, useContext, useState } from 'react'
+import { User } from '../services/appInterfaces'
+import { TextField, Button } from '@mui/material'
 import bcrypt from 'bcryptjs'
 
 const mySalt = "$2a$10$Y5H9Mw5WmFVDB46qEhCU0u"
@@ -6,8 +8,8 @@ const mySalt = "$2a$10$Y5H9Mw5WmFVDB46qEhCU0u"
 export const Login = (): JSX.Element => {
 
     // const {setUser, setDisplayName} = useContext(UserDetailsContext)
-    const [userCreds, setUserCreds] = useState(null)
-    const [showPassword, setShowPassword] = useState(false)
+    const [userCreds, setUserCreds] = useState<User>({username: '', password: ''})
+    // const [showPassword, setShowPassword] = useState(false)
     
     const handleSignIn = () => {
         if(!userCreds){
@@ -21,7 +23,7 @@ export const Login = (): JSX.Element => {
         }
         if(username && password){
             const hashedPassword = bcrypt.hashSync(password, mySalt)
-            fetch(`${process.env.REACT_APP_API_ENDPOINT}/login`, {
+            fetch(`http://localhost:4000/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -58,7 +60,7 @@ export const Login = (): JSX.Element => {
         }
         if(username && password){
             const hashedPassword = bcrypt.hashSync(password, mySalt)
-            fetch(`${process.env.REACT_APP_API_ENDPOINT}/signup`, {
+            fetch(`http://localhost:4000/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -67,24 +69,44 @@ export const Login = (): JSX.Element => {
             })
             .then(response => response.json())
             .then(data => {
+                console.log(data)
                 // setDisplayName(data.user.username)
                 // setUser(data.token)
-                localStorage.setItem('user', data.token)
-                localStorage.setItem('displayname', data.user.username)
+                // localStorage.setItem('user', data.token)
+                // localStorage.setItem('displayname', data.user.username)
             })
             // .then(() => handleClose(false))
             .catch(err => alert(err))
     }
     }
 
-    // const handleForm = e => {
-    //     setUserCreds({ ...userCreds, [e.target.name]: e.target.value})
-    // }
-
-    const togglePassword = () => {
-        setShowPassword(!showPassword)
+    const handleForm = (e: ChangeEvent<HTMLInputElement>) => {
+        setUserCreds({ ...userCreds, [e.target.name]: e.target.value})
     }
+
     return (
-        <></>
+        <>
+        <form>
+            <TextField
+                required
+                id="outlined-required"
+                label="Username"
+                name="username"
+                onChange={handleForm}
+            />
+            <TextField
+                required
+                id="outlined-password-input"
+                label="Password"
+                type="password"
+                name="password"
+                autoComplete="current-password"
+                onChange={handleForm}
+            />
+            <Button onClick={handleSignUp} >
+                Submit
+            </Button>
+        </form>
+        </>
     )
 }

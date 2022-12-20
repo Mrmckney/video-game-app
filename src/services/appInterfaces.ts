@@ -22,4 +22,5 @@ export interface Game {
 
 export interface User {
     username: string
+    password: string
 }

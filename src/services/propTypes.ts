@@ -14,3 +14,8 @@ export type DrawerProps = {
     openDrawer: boolean
     setOpenDrawer: Dispatch<SetStateAction<boolean>>
 }
+
+export type SearchProps = {
+    setErrorPopUp: Dispatch<SetStateAction<boolean>>
+    setErrorMessage: Dispatch<SetStateAction<string>>
+}
