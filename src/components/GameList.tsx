@@ -1,14 +1,15 @@
-import { Game } from "../services/interfaces";
-import { GameProps } from "../services/types";
+import { Game } from "../services/appInterfaces";
 import { Card, CardActions, CardContent, CardMedia, Button, Typography, Rating } from "@mui/material";
+import { GameProps } from "../services/propTypes";
+import { gameListStyles } from "../styles/gameListStyles";
 
 export const GameList = ({gameData}: GameProps): JSX.Element => {
 
     return (
-        <div style={{display: 'flex', flexWrap: 'wrap', backgroundColor: '#104676'}}>
+        <div style={gameListStyles.gameListContainer}>
         {gameData?.map((game: Game) => {
             return (
-                <Card key={game.id} sx={{ width: 350, margin: 5, borderRadius: 3 }}>
+                <Card key={game.id} sx={gameListStyles.gameListCard}>
                     <CardMedia
                         component="img"
                         height="300"
@@ -24,7 +25,7 @@ export const GameList = ({gameData}: GameProps): JSX.Element => {
                         </Typography>
                         <Rating name="read-only" value={game.rating} precision={0.5} readOnly />
                     </CardContent>
-                    <CardActions style={{display: 'flex', justifyContent: 'space-between'}}>
+                    <CardActions style={gameListStyles.gameListCardAction}>
                             <Button size="small" color="warning" variant="contained">Wishlist</Button>
                             <Button size="small" color="info" variant="contained">Learn More</Button>
                     </CardActions>
