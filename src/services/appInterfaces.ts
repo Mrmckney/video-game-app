@@ -20,7 +20,18 @@ export interface Game {
     platforms: []
 }
 
-export interface User {
+export interface UserCreds {
     username: string
     password: string
+}
+
+export interface User {
+    username?: string
+    user?: {
+        _id: string
+        favorites: Game[]
+        username: string
+    }
+    message: string
+    token: string
 }
