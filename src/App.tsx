@@ -5,13 +5,17 @@ import { Login } from './components/Login'
 import { NavBar } from './components/NavBar'
 import { Alert, LinearProgress } from '@mui/material'
 import { UserContext } from './services/contextTypes'
+import { Game } from './services/appInterfaces'
 import './App.css'
+import { WishList } from './pages/WishList'
+import { TopRatedGames } from './pages/TopRatedGames'
 
 export const UserDetailsContext = createContext<UserContext>({} as UserContext)
 
 const App: FC = () =>  {
 
   const [user, setUser] = useState<string>('');
+  const [favData, setFavData] = useState<Game[]>([])
   const [displayName, setDisplayName] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
   const [successPopUp, setSuccessPopUp] = useState<boolean>(false)
@@ -50,7 +54,7 @@ const App: FC = () =>  {
   }, [successPopUp])
 
   return (
-    <UserDetailsContext.Provider value={{user, setUser, displayName, setDisplayName, setErrorMessage, errorPopUp, setErrorPopUp, setLoading, setSuccessMessage, setSuccessPopUp}}>
+    <UserDetailsContext.Provider value={{user, setUser, displayName, setDisplayName, setErrorMessage, errorPopUp, setErrorPopUp, loading, setLoading, setSuccessMessage, setSuccessPopUp, favData, setFavData}}>
       <div className="App">
         <NavBar />
         {loading && <div style={{width: '100%'}}><LinearProgress /></div>}
@@ -59,6 +63,8 @@ const App: FC = () =>  {
         <Routes>
           <Route path='/' element={<SearchGames />}/>
           <Route path='/login' element={<Login />}/>
+          <Route path='/wishlist' element={<WishList />}/>
+          <Route path='/toprated' element={<TopRatedGames />}/>
         </Routes>
       </div>
     </UserDetailsContext.Provider>

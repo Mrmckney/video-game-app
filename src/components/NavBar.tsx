@@ -107,6 +107,7 @@ export const NavBar = (): JSX.Element => {
                     Settings
                     </MenuItem>
                     <MenuItem onClick={() => {
+                      navigate('/')
                       localStorage.clear()
                       window.location.reload()
                     }}>

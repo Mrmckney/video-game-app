@@ -47,12 +47,12 @@ export const Login = (): JSX.Element => {
                 setSuccessPopUp(true)
                 setSuccessMessage(`${data.message}: Welcome back ${data.user.username}`)
                 navigate('/')
-                return
             } else {
                 setErrorPopUp(true)
                 setErrorMessage(data.message)
                 throw new Error(data.message)
             }
+            return
         }
     }
 
@@ -85,13 +85,13 @@ export const Login = (): JSX.Element => {
                 setUser(data.token)
                 localStorage.setItem('user', data.token)
                 localStorage.setItem('displayname', data.username)
-                navigate('/')
-                return
+                navigate('/')  
             } else {
                 setErrorPopUp(true)
                 setErrorMessage(data.message)
                 throw new Error(data.message)
             }
+            return
         }
     }
 

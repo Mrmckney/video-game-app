@@ -9,17 +9,29 @@ import ListItemText from '@mui/material/ListItemText';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 import ListAltIcon from '@mui/icons-material/ListAlt';
+import { useNavigate } from 'react-router-dom';
+import { UserDetailsContext } from '../App';
+import { useContext } from 'react';
 
 
 
 export const MenuDrawer = ({openDrawer, setOpenDrawer}: DrawerProps): JSX.Element => {
   
+  const navigate = useNavigate()
+  const {user} = useContext(UserDetailsContext)
 
   const list = () => (
     <>
       <List>
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => {
+              if (user) {
+                navigate('/toprated')
+                setOpenDrawer(false)
+              } else {
+                // pop up message to log in
+              }
+            }}>
               <ListItemIcon>
                  <AutoAwesomeIcon />
               </ListItemIcon>
@@ -38,7 +50,14 @@ export const MenuDrawer = ({openDrawer, setOpenDrawer}: DrawerProps): JSX.Elemen
       <Divider />
       <List>
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => {
+              if (user) {
+                navigate('/wishlist')
+                setOpenDrawer(false)
+              } else {
+                // pop up message to log in
+              }
+            }}>
               <ListItemIcon>
                  <ListAltIcon />
               </ListItemIcon>
