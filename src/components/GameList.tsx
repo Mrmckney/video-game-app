@@ -49,7 +49,7 @@ export const GameList = ({gameData}: GameProps): JSX.Element => {
         if (data.message === 'Favorite added') {
             loadFavorites().then()
             setSuccessPopUp(true)
-            setSuccessMessage(`Added ${game.name} to your wishlist`)
+            setSuccessMessage(`Added ${game.name} to your Wishlist`)
         } else {
             setErrorMessage(data.message)
             setErrorPopUp(true)
@@ -71,7 +71,7 @@ export const GameList = ({gameData}: GameProps): JSX.Element => {
         if (data.message === 'Removed Favorite') {
             loadFavorites().then()
             setSuccessPopUp(true)
-            setSuccessMessage(`Removed ${game.name} from your wishlist`)
+            setSuccessMessage(`Removed ${game.name} from your Wishlist`)
         } else {
             setErrorMessage(data.message)
             setErrorPopUp(true)
@@ -93,10 +93,10 @@ export const GameList = ({gameData}: GameProps): JSX.Element => {
                         alt="green iguana"
                     />
                     <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
+                        <Typography gutterBottom variant="h5" component="div" sx={{color: 'white'}}>
                             {game.name}
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" color="text.secondary" sx={{color: 'white'}}>
                             {game.suggestions_count}
                         </Typography>
                         <Rating name="read-only" value={game.rating} precision={0.5} readOnly />

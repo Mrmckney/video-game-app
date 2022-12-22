@@ -49,7 +49,7 @@ export const WishList = (): JSX.Element => {
         if (data.message === 'Removed Favorite') {
             loadFavorites().then()
             setSuccessPopUp(true)
-            setSuccessMessage(`Removed ${game.name} from your wishlist`)
+            setSuccessMessage(`Removed ${game.name} from your Wishlist`)
         } else {
             setErrorMessage(data.message)
             setErrorPopUp(true)
@@ -59,6 +59,8 @@ export const WishList = (): JSX.Element => {
     }
 
     return (
+        <div style={{height: '100%', backgroundColor: '#19324f'}}>
+
         <div style={gameListStyles.gameListContainer}>
         {favData?.map((game: Game) => {
             return (
@@ -86,5 +88,6 @@ export const WishList = (): JSX.Element => {
             )
         })}
     </div>  
+        </div>
     )
 }
