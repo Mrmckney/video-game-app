@@ -1,14 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { Game } from "../services/appInterfaces";
-import { Card, CardActions, CardContent, CardMedia, Button, Typography, Rating } from "@mui/material";
+import { Card, CardActions, CardContent, CardMedia, Button, Typography, Rating, Box } from "@mui/material";
+import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import { GameProps } from "../services/propTypes";
 import { gameListStyles } from "../styles/gameListStyles";
 import { UserDetailsContext } from "../App";
 import { useNavigate } from "react-router-dom";
 
 export const WishList = (): JSX.Element => {
-
-    const navigate = useNavigate()
     const {user, setFavData, favData, setErrorMessage, setErrorPopUp, setSuccessMessage, setSuccessPopUp} = useContext(UserDetailsContext)
 
     useEffect(() => {
@@ -58,9 +57,18 @@ export const WishList = (): JSX.Element => {
         return
     }
 
+    if (favData.length === 0) {
+        return (
+            <>
+                <div style={{height: '100%', backgroundColor: '#19324f', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    <Typography variant="h4" style={{color: 'white'}}>Currently you have no wishlisted games</Typography>
+                </div>
+            </>
+        )
+    }
+
     return (
         <div style={{height: '100%', backgroundColor: '#19324f'}}>
-
         <div style={gameListStyles.gameListContainer}>
         {favData?.map((game: Game) => {
             return (
@@ -72,13 +80,16 @@ export const WishList = (): JSX.Element => {
                         alt="green iguana"
                     />
                     <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
+                        <Typography gutterBottom variant="h5" component="div" sx={{color: 'white'}}>
                             {game.name}
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            {game.suggestions_count}
+                        <div style={{display: 'flex', paddingBottom: 5}}>
+                            <Rating name="read-only" icon={<SportsEsportsIcon />} emptyIcon={<SportsEsportsIcon />} value={game.rating} precision={0.1} readOnly sx={{color: 'white'}} size='large' />
+                            <Box style={{color: 'white', paddingLeft: 8}} >{game.rating.toFixed(1)}</Box>
+                        </div>
+                        <Typography gutterBottom component="div" sx={{color: 'white'}}>
+                            R | {game.esrb_rating ? game.esrb_rating.name : 'Unrated'}
                         </Typography>
-                        <Rating name="read-only" value={game.rating} precision={0.5} readOnly />
                     </CardContent>
                     <CardActions style={gameListStyles.gameListCardAction}>
                             <Button size="small" color={"success"} variant="contained" onClick={() => handleRemoveFav(game)}>Remove Wishlist</Button>

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Game } from "../services/appInterfaces";
-import { Card, CardActions, CardContent, CardMedia, Button, Typography, Rating, useScrollTrigger } from "@mui/material";
+import { Card, CardActions, CardContent, CardMedia, Button, Typography, Rating, Box } from "@mui/material";
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import { GameProps } from "../services/propTypes";
 import { gameListStyles } from "../styles/gameListStyles";
 import { UserDetailsContext } from "../App";
@@ -33,7 +34,6 @@ export const GameList = ({gameData}: GameProps): JSX.Element => {
             setErrorPopUp(true)
             throw new Error(data.message)
         }
-        return
     }
 
     const handleFavorite = async (game: Game) => {
@@ -96,10 +96,13 @@ export const GameList = ({gameData}: GameProps): JSX.Element => {
                         <Typography gutterBottom variant="h5" component="div" sx={{color: 'white'}}>
                             {game.name}
                         </Typography>
-                        <Typography variant="body2" color="text.secondary" sx={{color: 'white'}}>
-                            {game.suggestions_count}
+                        <div style={{display: 'flex', paddingBottom: 5}}>
+                            <Rating name="read-only" icon={<SportsEsportsIcon />} emptyIcon={<SportsEsportsIcon />} value={game.rating} precision={0.1} readOnly sx={{color: 'white'}} size='large' />
+                            <Box style={{color: 'white', paddingLeft: 8}} >{game.rating.toFixed(1)}</Box>
+                        </div>
+                        <Typography gutterBottom component="div" sx={{color: 'white'}}>
+                            R | {game.esrb_rating ? game.esrb_rating.name : 'Unrated'}
                         </Typography>
-                        <Rating name="read-only" value={game.rating} precision={0.5} readOnly />
                     </CardContent>
                     <CardActions style={gameListStyles.gameListCardAction}>
                         {user ? 

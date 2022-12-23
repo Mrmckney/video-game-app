@@ -7,17 +7,49 @@ export interface Game {
     background_image: string
     rating: number
     rating_top: number
-    ratings: Object
+    ratings: [{
+        id: number
+        title: string
+        count: number
+        percent: number
+    }]
     ratings_count: number
     reviews_text_count:  string 
     added: number
-    added_by_status: Object
+    added_by_status: {
+        yet: number
+        owned: number
+        beaten: number
+        toplay: number
+        dropped: number
+        playing: number
+    }
     metacritic: number
     playtime: number
     suggestions_count: number
     updated: Date
-    esrb_rating: Object
-    platforms: []
+    esrb_rating: {
+        id: number
+        name: string
+        slug: string
+    }
+    platforms: [{
+        platform?: {
+            id?: number
+            name?: string
+            slug?: string
+            image?: string | null
+            year_end?: number | null
+            year_start?: number | null
+            games_count?: number
+            image_background?: string
+        }
+        released_at?: string
+        requirements_en?: {
+            minimum: string
+            recommended: string
+        } | null
+    }]
 }
 
 export interface UserCreds {

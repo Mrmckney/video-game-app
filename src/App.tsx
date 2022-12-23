@@ -9,6 +9,8 @@ import { Game } from './services/appInterfaces'
 import './App.css'
 import { WishList } from './pages/WishList'
 import { TopRatedGames } from './pages/TopRatedGames'
+import { TopSuggestedGames } from './pages/TopSuggestedGames'
+import { MostPlayedGames } from './pages/MostPlayedGames'
 
 export const UserDetailsContext = createContext<UserContext>({} as UserContext)
 
@@ -64,6 +66,8 @@ const App: FC = () =>  {
           <Route path='/' element={<SearchGames />}/>
           <Route path='/login' element={<Login />}/>
           <Route path='/wishlist' element={<WishList />}/>
+          <Route path='/mostplayed' element={<MostPlayedGames />}/>
+          <Route path='/topsuggested' element={<TopSuggestedGames />}/>
           <Route path='/toprated' element={<TopRatedGames />}/>
         </Routes>
       </div>

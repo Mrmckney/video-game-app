@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { UserDetailsContext } from '../App';
 import { DrawerProps } from '../services/propTypes';
 import { Modal, Box, Typography, Button, Drawer, List, Divider, ListItem, ListItemButton, ListItemIcon, ListItemText} from '@mui/material';
+import GradeIcon from '@mui/icons-material/Grade';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 import ListAltIcon from '@mui/icons-material/ListAlt';
@@ -55,23 +56,37 @@ export const MenuDrawer = ({openDrawer, setOpenDrawer}: DrawerProps): JSX.Elemen
       <List>
           <ListItem disablePadding>
             <ListItemButton onClick={() => {
-                navigate('/toprated')
+                navigate('/mostplayed')
                 setOpenDrawer(false)
             }}>
               <ListItemIcon>
                  <AutoAwesomeIcon />
               </ListItemIcon>
-              <ListItemText primary='Top Rated' />
+              <ListItemText primary='Most Played' />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={() => {
+                navigate('/topsuggested')
+                setOpenDrawer(false)
+            }}>
             <ListItemIcon>
               <EmojiPeopleIcon />
             </ListItemIcon>
             <ListItemText primary='Top Suggested' />
           </ListItemButton>
         </ListItem>
+        <ListItem disablePadding>
+            <ListItemButton onClick={() => {
+                navigate('/toprated')
+                setOpenDrawer(false)
+            }}>
+              <ListItemIcon>
+                 <GradeIcon />
+              </ListItemIcon>
+              <ListItemText primary='Top Rated' />
+            </ListItemButton>
+          </ListItem>
       </List>
       <Divider />
       <List>
