@@ -2,21 +2,20 @@ import { useState, useContext, useEffect } from "react"
 import { ImageList, ImageListItem } from "@mui/material";
 import { UserDetailsContext } from "../App";
 import { useNavigate } from "react-router-dom";
+import { homeStyles } from "../styles/homeStyles";
+import { HomeGame } from "../services/appInterfaces";
 
-type Games = {
-    title: string
-    image: string
-}
+
 
 export const Home = (): JSX.Element => {
 
     const navigate = useNavigate()
     const {setErrorPopUp, setErrorMessage, setLoading} = useContext(UserDetailsContext)
-    const [games, setGames] = useState<Games[]>([])
+    const [games, setGames] = useState<HomeGame[]>([])
 
     useEffect(() => {
         setLoading(true)
-        loadPreset().then((data) => {
+        loadPreset().then((data: HomeGame[]) => {
             setGames(data)
             setLoading(false)
         })
@@ -34,13 +33,13 @@ export const Home = (): JSX.Element => {
     }
 
     return (
-        <div style={{backgroundColor: '#19324f'}}>
-            <div style={{display: 'flex', justifyContent: 'center', color: 'white' }}>
+        <div style={homeStyles.homeContainer}>
+            <div style={homeStyles.homeTitle}>
                 <h1>Welcome to Game Retriever</h1>
             </div>
-            <ImageList sx={{ width: '100%', height: '100%' }} cols={10} rowHeight={164}>
-                {games?.map((game) => (
-                    <ImageListItem key={game.image} onClick={() => navigate(`/game/${game.title}`)} style={{cursor: 'pointer'}}>
+            <ImageList sx={homeStyles.imageList} cols={10} rowHeight={164}>
+                {games?.map((game: HomeGame) => (
+                    <ImageListItem key={game.image} onClick={() => navigate(`/game/${game.title}`)} sx={homeStyles.image}>
                     <img
                         src={`${game.image}?w=164&h=164&fit=crop&auto=format`}
                         srcSet={`${game.image}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}

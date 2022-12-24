@@ -61,7 +61,7 @@ export const SearchGames = (): JSX.Element => {
         <div style={searchGameStyles.searchGameContainer}>
             <div style={searchGameStyles.searchGameField} > 
                 <form onSubmit={(e: FormEvent) => searchBar(e)} style={{width: '500px'}}>
-                    <TextField fullWidth id="outlined-search" label="Search over 550,000 games" type="search" variant="filled" onChange={(e) => setWord(e.target.value)}/>
+                    <TextField fullWidth id="outlined-search" label="Search over 550,000 games" type="search" variant="filled" style={{backgroundColor: 'white'}} onChange={(e) => setWord(e.target.value)}/>
                 </form>
             </div>
             {gameData.length > 0 &&

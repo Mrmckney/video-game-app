@@ -74,7 +74,7 @@ const App: FC = () =>  {
           <Route path='/toprated' element={<TopRatedGames />}/>
           <Route path='/game/:slug' element={<SinglePageGame />}/>
         </Routes>
-        <footer style={{display: 'flex', justifyContent: 'center'}}>
+        <footer style={{display: 'flex', justifyContent: 'center', background: '#19324f'}}>
           <a href='https://rawg.io/' style={{textDecoration: 'none', color: 'white'}}>
             &copy; RAWG.IO
           </a>

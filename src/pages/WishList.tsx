@@ -1,11 +1,9 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Game } from "../services/appInterfaces";
 import { Card, CardActions, CardContent, CardMedia, Button, Typography, Rating, Box } from "@mui/material";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
-import { GameProps } from "../services/propTypes";
 import { gameListStyles } from "../styles/gameListStyles";
 import { UserDetailsContext } from "../App";
-import { useNavigate } from "react-router-dom";
 
 export const WishList = (): JSX.Element => {
     const {user, setFavData, favData, setErrorMessage, setErrorPopUp, setSuccessMessage, setSuccessPopUp} = useContext(UserDetailsContext)

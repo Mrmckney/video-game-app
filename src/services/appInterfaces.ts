@@ -67,3 +67,8 @@ export interface User {
     message: string
     token: string
 }
+
+export interface HomeGame {
+    title: string
+    image: string
+}

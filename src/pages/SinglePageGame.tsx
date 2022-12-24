@@ -10,10 +10,8 @@ export const SinglePageGame = (): JSX.Element => {
     const [game, setGame] = useState<Game>({} as Game)
 
     useEffect(() => {
-        console.log('we ran')
         setLoading(true)
         fetchSingleGame(params.slug).then((data) => {
-            console.log(data)
             setGame(data) 
             setLoading(false)
         })

@@ -109,26 +109,28 @@ export const Login = (): JSX.Element => {
                     <TextField
                         error={errorPopUp}
                         required
-                        id="outlined-required"
+                        id="filled-basic"
                         label="Username"
                         name="username"
                         onChange={handleForm}
-                        sx={{marginBottom: 3}}
+                        variant="filled"
+                        sx={{marginBottom: 3, backgroundColor: 'white'}}
                     />
                     <TextField
                         error={errorPopUp}
                         required
-                        id="outlined-password-input"
+                        id="filled-password-input"
                         label="Password"
                         type="password"
                         name="password"
                         onChange={handleForm}
-                        sx={{marginBottom: 3}}
+                        variant="filled"
+                        sx={{marginBottom: 3, backgroundColor: 'white'}}
                     />
                     <Button sx={{marginBottom: 40}} variant='contained' onClick={isLogin ? handleSignIn : handleSignUp} >
                         Submit
                     </Button>
-                    <Button variant='contained' color='inherit' onClick={() => setIsLogin(!isLogin)} >
+                    <Button variant='contained' color='inherit' style={{color: 'black'}} onClick={() => setIsLogin(!isLogin)} >
                         Switch to {isLogin ? 'Sign Up' : 'Login'}
                     </Button>
             </div>
