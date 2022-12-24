@@ -110,7 +110,7 @@ export const GameList = ({gameData}: GameProps): JSX.Element => {
                         : 
                             <Button size="small" color="inherit" variant="contained" onClick={() => navigate('/login')}>Login to Wishlist game</Button>
                         }
-                            <Button size="small" color="info" variant="contained">Learn More</Button>
+                            <Button size="small" color="info" variant="contained" onClick={() => navigate(`/game/${game.slug}`)}>Learn More</Button>
                     </CardActions>
                 </Card>
             )

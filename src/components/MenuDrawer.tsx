@@ -7,6 +7,7 @@ import GradeIcon from '@mui/icons-material/Grade';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 import ListAltIcon from '@mui/icons-material/ListAlt';
+import SearchIcon from '@mui/icons-material/Search';
 
 
 
@@ -41,7 +42,7 @@ export const MenuDrawer = ({openDrawer, setOpenDrawer}: DrawerProps): JSX.Elemen
       >
         <Box sx={style}>
           <Typography variant="h6">
-            Login to gain access to Wishlist
+            Login to gain access
           </Typography>
           <Button sx={{ mt: 5 }} variant="contained" onClick={() => {
             navigate('/login')
@@ -103,6 +104,21 @@ export const MenuDrawer = ({openDrawer, setOpenDrawer}: DrawerProps): JSX.Elemen
                  <ListAltIcon />
               </ListItemIcon>
               <ListItemText primary='WishList' />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton onClick={() => {
+              if (user) {
+                navigate('/search')
+                setOpenDrawer(false)
+              } else {
+                setOpen(true)
+              }
+            }}>
+              <ListItemIcon>
+                 <SearchIcon />
+              </ListItemIcon>
+              <ListItemText primary='Search Game' />
             </ListItemButton>
           </ListItem>
       </List>

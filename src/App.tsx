@@ -1,7 +1,8 @@
 import { FC, useState, createContext, useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { SearchGames } from './components/SearchGame'
-import { Login } from './components/Login'
+import { Home } from './pages/Home'
+import { Login } from './pages/Login'
 import { NavBar } from './components/NavBar'
 import { Alert, LinearProgress } from '@mui/material'
 import { UserContext } from './services/contextTypes'
@@ -11,6 +12,7 @@ import { WishList } from './pages/WishList'
 import { TopRatedGames } from './pages/TopRatedGames'
 import { TopSuggestedGames } from './pages/TopSuggestedGames'
 import { MostPlayedGames } from './pages/MostPlayedGames'
+import { SinglePageGame } from './pages/SinglePageGame'
 
 export const UserDetailsContext = createContext<UserContext>({} as UserContext)
 
@@ -63,13 +65,20 @@ const App: FC = () =>  {
         {errorPopUp && <Alert severity='error' onClose={() => {setErrorPopUp(false)}}>{errorMessage}</Alert>}
         {successPopUp && <Alert severity='success' onClose={() => {setSuccessPopUp(false)}}>{successMessage}</Alert>}
         <Routes>
-          <Route path='/' element={<SearchGames />}/>
+          <Route path='/' element={<Home />}/>
+          <Route path='/search' element={<SearchGames />}/>
           <Route path='/login' element={<Login />}/>
           <Route path='/wishlist' element={<WishList />}/>
           <Route path='/mostplayed' element={<MostPlayedGames />}/>
           <Route path='/topsuggested' element={<TopSuggestedGames />}/>
           <Route path='/toprated' element={<TopRatedGames />}/>
+          <Route path='/game/:slug' element={<SinglePageGame />}/>
         </Routes>
+        <footer style={{display: 'flex', justifyContent: 'center'}}>
+          <a href='https://rawg.io/' style={{textDecoration: 'none', color: 'white'}}>
+            &copy; RAWG.IO
+          </a>
+        </footer>
       </div>
     </UserDetailsContext.Provider>
   )

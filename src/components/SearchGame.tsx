@@ -1,17 +1,40 @@
-import { FormEvent, useState, useContext } from "react"
+import { FormEvent, useState, useContext, useEffect } from "react"
 import { GameList } from "./GameList";
 import { Game } from "../services/appInterfaces";
 import { searchGameStyles } from "../styles/searchGameStyles";
-import { TextField, LinearProgress } from "@mui/material";
+import { TextField, ImageList, ImageListItem } from "@mui/material";
 import { UserDetailsContext } from "../App";
 
-
+type Games = {
+    title: string
+    image: string
+}
 
 export const SearchGames = (): JSX.Element => {
 
     const {setErrorPopUp, setErrorMessage, setLoading} = useContext(UserDetailsContext)
     const [word, setWord] = useState<string>('')
     const [gameData, setGameData] = useState<Game[]>([])
+    const [games, setGames] = useState<Games[]>([])
+
+    useEffect(() => {
+        setLoading(true)
+        loadPreset().then((data) => {
+            setGames(data)
+            setLoading(false)
+        })
+    }, [])
+
+    const loadPreset = async () => {
+        const response: Response = await fetch(`http://localhost:4000/preset`)
+        const searchResults = await response.json()
+        if (searchResults.status === 500) {
+            setErrorPopUp(true)
+            setErrorMessage(searchResults.message)
+            throw new Error(searchResults.message)
+        }
+        return searchResults
+    }
 
     const searchBar = async (e: FormEvent) => {
         e.preventDefault()

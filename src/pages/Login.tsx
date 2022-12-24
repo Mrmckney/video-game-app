@@ -85,6 +85,8 @@ export const Login = (): JSX.Element => {
                 setUser(data.token)
                 localStorage.setItem('user', data.token)
                 localStorage.setItem('displayname', data.username)
+                setSuccessPopUp(true)
+                setSuccessMessage(`${data.message}: Welcome ${data.username}`)
                 navigate('/')  
             } else {
                 setErrorPopUp(true)
