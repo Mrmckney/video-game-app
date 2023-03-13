@@ -7,12 +7,12 @@ export interface Game {
     background_image: string
     rating: number
     rating_top: number
-    ratings: [{
+    ratings: Array<{
         id: number
         title: string
         count: number
         percent: number
-    }]
+    }>
     ratings_count: number
     reviews_text_count:  string 
     added: number
@@ -33,7 +33,7 @@ export interface Game {
         name: string
         slug: string
     }
-    platforms: [{
+    platforms: Array<{
         platform?: {
             id?: number
             name?: string
@@ -49,7 +49,7 @@ export interface Game {
             minimum: string
             recommended: string
         } | null
-    }]
+    }>
 }
 
 export interface UserCreds {

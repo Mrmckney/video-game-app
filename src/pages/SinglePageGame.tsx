@@ -1,6 +1,8 @@
-import { useEffect, useState, useContext } from "react"
+import { useEffect, useState, useContext, useMemo, useCallback } from "react"
 import { useParams } from "react-router-dom"
 import { Game } from "../services/appInterfaces"
+import { Rating, Box, Avatar } from "@mui/material";
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import { UserDetailsContext } from "../App";
 
 
@@ -17,8 +19,23 @@ export const SinglePageGame = (): JSX.Element => {
         })
     },[params.slug])
 
+    
+    const metaCriticColor = useMemo(() => {
+        if (!game.metacritic) {
+            return { backgroundColor: 'black' }
+        }
+        if (game.metacritic > 80) {
+            return { backgroundColor: '#36bf08' }
+        }
+        if (game.metacritic < 80 && game.metacritic > 60) {
+            return { backgroundColor: '#b6bf08' }
+        }
+        if (game.metacritic < 60) {
+            return { backgroundColor: '#bf081a' }
+        }
+    }, [game])
+    
     const fetchSingleGame = async (game: string | undefined) => {
-        console.log(game)
         const response: Response = await fetch(`http://localhost:4000/game/${game}`)
         const data = await response.json()
         if (data.status === 500) {
@@ -29,65 +46,30 @@ export const SinglePageGame = (): JSX.Element => {
         return data
     }
 
+    
     return (
         <>
-        {game &&
-            <div>
-                <h1>{game?.name}</h1>
-                <img src={game?.background_image}  style={{height: 300, width: 500}}/>
-                <h6>{game?.added}</h6>
-                <h6>{game?.rating}</h6>
-                <h6>{game?.playtime}</h6>
-                <div>
-                    {game?.platforms?.map((platform, i) => {
-                        return (
-                            <div key={i}>
-                                <h6>{platform.platform?.games_count}</h6>
-                                <h6>{platform.platform?.id}</h6>
-                                <h6>{platform.platform?.image}</h6>
-                                <h6>{platform.platform?.image_background}</h6>
-                                <h6>{platform.platform?.name}</h6>
-                                <h6>{platform.platform?.slug}</h6>
-                                <h6>{platform.platform?.year_end}</h6>
-                                <h6>{platform.platform?.year_start}</h6>
-                                <h6>{platform.released_at}</h6>
-                                <h6>{platform.requirements_en?.minimum}</h6>
-                                <h6>{platform.requirements_en?.recommended}</h6>
-                            </div>
-                        )
-                    })}
+        {game && game.rating &&
+            <div style={{display: 'flex', justifyContent: 'center', width: '100%', height: '100%', backgroundColor: '#19324f', color: 'white', paddingBottom: 300, paddingRight: 400}}>
+                <div style={{alignItems: 'flex-start', flexDirection: 'column'}}>
+                    <h1>{game?.name}</h1>
+                    <img src={game?.background_image}  style={{height: 500, width: 600}}/>
                 </div>
-                <h6>{game?.metacritic}</h6>
-                <h6>{game?.id}</h6>
-                <h6>{game?.esrb_rating?.name}</h6>
-                <h6>{game?.esrb_rating?.slug}</h6>
-                <h6>{game?.added_by_status?.beaten}</h6>
-                <h6>{game?.added_by_status?.dropped}</h6>
-                <h6>{game?.added_by_status?.owned}</h6>
-                <h6>{game?.added_by_status?.playing}</h6>
-                <h6>{game?.added_by_status?.toplay}</h6>
-                <h6>{game?.added_by_status?.yet}</h6>
-                <h6>{game?.rating_top}</h6>
-                <div>
-                    {game?.ratings?.map((rating, i) => {
-                        return (
-                            <div key={i}>
-                                <h6>{rating.count}</h6>
-                                <h6>{rating.id}</h6>
-                                <h6>{rating.percent}</h6>
-                                <h6>{rating.title}</h6>
-                            </div>
-                        )
-                    })}
-                
+                <div style={{display: 'flex', paddingBottom: 5}}>
+                        <Rating name="read-only" icon={<SportsEsportsIcon />} emptyIcon={<SportsEsportsIcon />} value={game?.rating} precision={0.1} readOnly sx={{color: 'white'}} size='large' />
+                        <Box style={{color: 'white', paddingLeft: 8}} >{game?.rating?.toFixed(1)}</Box>
                 </div>
-                <h6>{game?.ratings_count}</h6>
-                <h6>{game?.released?.toString()}</h6>
-                <h6>{game?.reviews_text_count}</h6>
-                <h6>{game?.slug}</h6>
-                <h6>{game?.suggestions_count}</h6>
-                <h6>{game?.tba}</h6>
-                <h6>{game?.updated?.toString()}</h6>
+                <div>
+                {game?.metacritic ?
+                    <Avatar style={metaCriticColor} variant="rounded">
+                        {game?.metacritic}
+                    </Avatar>
+                :
+                    <Avatar style={metaCriticColor} variant="rounded">
+                            N/A
+                    </Avatar>
+                }
+                </div>
             </div>
         }
         </>

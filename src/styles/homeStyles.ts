@@ -21,6 +21,7 @@ export const homeStyles: HomeStyles = {
     image: {
         cursor: 'pointer',
         '&:hover': {
+            boxShadow: 'lightblue 0px 0px 20px 12px',
             transform: 'translateY(-10px)',
         }
     }
