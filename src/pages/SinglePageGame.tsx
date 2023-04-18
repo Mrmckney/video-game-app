@@ -4,16 +4,20 @@ import { Game } from "../services/appInterfaces"
 import { Rating, Box, Avatar } from "@mui/material";
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import { UserDetailsContext } from "../App";
+import zIndex from "@mui/material/styles/zIndex";
 
 
 export const SinglePageGame = (): JSX.Element => {
     const params = useParams()
     const {setErrorPopUp, setErrorMessage, setLoading} = useContext(UserDetailsContext)
     const [game, setGame] = useState<Game>({} as Game)
+    console.log(game)
 
     useEffect(() => {
         setLoading(true)
         fetchSingleGame(params.slug).then((data) => {
+            let test = new Date(data.released)
+            data.released = test.toString().slice(0, 16)
             setGame(data) 
             setLoading(false)
         })
@@ -50,26 +54,39 @@ export const SinglePageGame = (): JSX.Element => {
     return (
         <>
         {game && game.rating &&
-            <div style={{display: 'flex', justifyContent: 'center', width: '100%', height: '100%', backgroundColor: '#19324f', color: 'white', paddingBottom: 300, paddingRight: 400}}>
-                <div style={{alignItems: 'flex-start', flexDirection: 'column'}}>
-                    <h1>{game?.name}</h1>
-                    <img src={game?.background_image}  style={{height: 500, width: 600}}/>
+            <div style={{display: 'flex', justifyContent: 'center', width: '100%', height: '100%', backgroundColor: '#19324f', color: 'white', paddingTop: 60}}>
+                <div style={{flexDirection: 'column'}}>
+                    <div style={{display: 'flex', paddingBottom: 5, justifyContent: 'space-between'}}>
+                        <h1 style={{fontSize: '2em'}}>{game?.name}</h1>
+                        <div style={{display: 'flex'}}>
+                            <Rating name="read-only" icon={<SportsEsportsIcon style={{width: 40, height: 40}}/>} emptyIcon={<SportsEsportsIcon style={{width: 40, height: 40}}/>} value={game?.rating} precision={0.1} readOnly sx={{color: 'white'}} size="large" />
+                            <Box style={{color: 'white', paddingLeft: 8, fontSize: '2em'}} >{game?.rating?.toFixed(1)}</Box>
+                        </div>
+                    </div>
+                    <div style={{position: 'relative'}}>
+                        <div style={{position: 'relative', zIndex: 1}}>
+                            <img src={game?.background_image}  style={{height: 700, width: 1200, borderRadius: 10}}/>
+                        </div>
+                        <div style={{position: 'absolute', zIndex: 2, top: 20, left: 20}}>
+                        {game?.metacritic ?
+                            <Avatar style={metaCriticColor} variant="rounded" sx={{fontSize: 40, padding: 5}}>
+                                {game?.metacritic}
+                            </Avatar>
+                        :
+                            <Avatar style={metaCriticColor} variant="rounded" sx={{fontSize: 40, padding: 5}}>
+                                    N/A
+                            </Avatar>
+                        }
+                        </div>
+                    </div>
+                    {/* <div style={{display: 'flex', paddingBottom: 5}}>
+                        <Rating name="read-only" icon={<SportsEsportsIcon style={{width: 40, height: 40}}/>} emptyIcon={<SportsEsportsIcon style={{width: 40, height: 40}}/>} value={game?.rating} precision={0.1} readOnly sx={{color: 'white'}} size="large" />
+                        <Box style={{color: 'white', paddingLeft: 8, fontSize: '2em'}} >{game?.rating?.toFixed(1)}</Box>
+                    </div> */}
                 </div>
-                <div style={{display: 'flex', paddingBottom: 5}}>
-                        <Rating name="read-only" icon={<SportsEsportsIcon />} emptyIcon={<SportsEsportsIcon />} value={game?.rating} precision={0.1} readOnly sx={{color: 'white'}} size='large' />
-                        <Box style={{color: 'white', paddingLeft: 8}} >{game?.rating?.toFixed(1)}</Box>
-                </div>
-                <div>
-                {game?.metacritic ?
-                    <Avatar style={metaCriticColor} variant="rounded">
-                        {game?.metacritic}
-                    </Avatar>
-                :
-                    <Avatar style={metaCriticColor} variant="rounded">
-                            N/A
-                    </Avatar>
-                }
-                </div>
+                {/* <div>
+                    <span>Date Released - {game.released}</span>
+                </div> */}
             </div>
         }
         </>
