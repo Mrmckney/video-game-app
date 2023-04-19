@@ -72,3 +72,10 @@ export interface HomeGame {
     title: string
     image: string
 }
+
+export interface GameRating {
+    count: number
+    id: number
+    percent: number
+    title: string
+}

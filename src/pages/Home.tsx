@@ -49,11 +49,10 @@ export const Home = (): JSX.Element => {
             <ImageList sx={homeStyles.imageList} cols={10} rowHeight={164}>
                 {games?.map((game: HomeGame) => (
                     <ImageListItem key={game.image} onClick={() => navigate(`/game/${game.title}`)} sx={homeStyles.image}>
-                    <img
-                        src={`${game.image}?w=164&h=164&fit=crop&auto=format`}
-                        alt={game.title}
-                        loading="lazy"
-                    />
+                        <img
+                            src={`${game.image}?w=164&h=164&fit=crop&auto=format`}
+                            alt={game.title}
+                        />
                     </ImageListItem>
                 ))}
             </ImageList>
