@@ -74,8 +74,8 @@ const App: FC = () =>  {
           {
             user ?
             [ 
-              <Route path='/search' element={<SearchGames />}/>,
-              <Route path='/wishlist' element={<WishList />}/>
+              <Route key='search' path='/search' element={<SearchGames />}/>,
+              <Route key='wishlist' path='/wishlist' element={<WishList />}/>
             ]
             :
             null

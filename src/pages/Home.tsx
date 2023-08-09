@@ -48,8 +48,8 @@ export const Home = (): JSX.Element => {
             {!loading &&
                 <ImageList sx={homeStyles.imageList} cols={10} rowHeight={164}>
                     {games?.map((game: HomeGame) => (
-                        <Tooltip title={game.name}>
-                        <ImageListItem key={game.image} onClick={() => navigate(`/game/${game.title}`)} sx={homeStyles.image}>
+                        <Tooltip key={game.image} title={game.name}>
+                        <ImageListItem onClick={() => navigate(`/game/${game.title}`)} sx={homeStyles.image}>
                             <img
                                 src={`${game.image}?w=164&h=164&fit=crop`}
                                 alt={game.title}

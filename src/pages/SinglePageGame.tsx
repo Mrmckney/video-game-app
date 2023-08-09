@@ -109,13 +109,13 @@ export const SinglePageGame = (): JSX.Element => {
                 </div>
                 <div style={{width: 500 ,paddingLeft: 15}}>
                     <div style={{display: 'flex', paddingBottom: 5, flexDirection: 'column'}}>
-                        <h1 style={{fontSize: '2em'}}>{game?.name}</h1>
+                        <h2>{game?.name}</h2>
                         <div style={{display: 'flex'}}>
                             <Rating name="read-only" icon={<SportsEsportsIcon style={{width: 40, height: 40}}/>} emptyIcon={<SportsEsportsIcon style={{width: 40, height: 40}}/>} value={game?.rating} precision={0.1} readOnly sx={{color: 'white'}} size="large" />
                             <Box style={{color: 'white', fontSize: '1.75em', paddingLeft: 5}} >{game?.rating?.toFixed(1)}</Box>
                         </div>
                     </div>
-                    <div style={{display: 'flex', flexDirection: 'column', marginTop: 80}}>
+                    <div style={{display: 'flex', flexDirection: 'column', marginTop: 40}}>
                         <h3 style={{marginLeft: 170, marginBottom: 5}}>Ratings</h3>
                         <PieChart
                             colors={['green', 'blue', 'orange', 'red']}
@@ -127,7 +127,7 @@ export const SinglePageGame = (): JSX.Element => {
                                     paddingAngle: 1,
                                     innerRadius: 100,
                                     outerRadius: 200,
-                                    arcLabel: getArcLabel,            
+                                    arcLabel: getArcLabel,         
                                 },
                             ]}
                             sx={{
@@ -141,13 +141,13 @@ export const SinglePageGame = (): JSX.Element => {
                             legend={{ hidden: true }}
                         />
                     </div>
-                    <div>
-                        <h3>Playtime - {game.playtime} Hours</h3>
-                        <h3 style={{marginRight: 10}}>ESRB - {game.esrb_rating.name}</h3>  
-                        <h2>Date Released - {game.released}</h2>
+                    <div style={{marginTop: 50}}>
+                        <h3>Playtime - {game?.playtime ?? 'N/A'} Hours</h3>
+                        <h3 style={{marginRight: 10}}>ESRB - {game?.esrb_rating?.name ?? 'N/A'}</h3>  
+                        <h2>Date Released - {game?.released ?? 'N/A'}</h2>
                     </div>
                 </div>
-                <div style={{textAlign: 'end' ,marginTop: 10, marginRight: 10, width: 500}}>
+                <div style={{textAlign: 'end', marginTop: 10, marginRight: 10, width: 500}}>
                     <h3>Available on</h3>
                     <div>
                         {platformsReleasedOn?.map((platform, i) => {
