@@ -1,17 +1,19 @@
 import { useEffect, useState, useContext, useMemo, useCallback } from "react"
 import { useParams } from "react-router-dom"
+import { DefaultizedPieValueType } from '@mui/x-charts';
 import { Game } from "../services/appInterfaces"
 import { Rating, Box, Avatar } from "@mui/material";
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import { UserDetailsContext } from "../App";
-import { GameRating } from "../services/appInterfaces";
+import { ChartRating } from "../services/appInterfaces";
+import { PieChart, pieArcLabelClasses } from "@mui/x-charts";
 
 export const SinglePageGame = (): JSX.Element => {
     const params = useParams()
     const {setErrorPopUp, setErrorMessage, setLoading} = useContext(UserDetailsContext)
     const [game, setGame] = useState<Game>({} as Game)
     const [platformsReleasedOn, setPlatformsReleasedOn] = useState<(string | undefined)[]>([])
-    const [ratings, setRatings] = useState<GameRating[]>([])
+    const [ratings, setRatings] = useState<ChartRating[]>([])
     
     useEffect(() => {
         setLoading(true)
@@ -26,7 +28,7 @@ export const SinglePageGame = (): JSX.Element => {
     useEffect(() => {
         if (game.name) {
             setPlatformsReleasedOn(getPlatforms())
-            setRatings(game?.ratings)
+            setRatings(getRatings())
         }
     }, [game])
 
@@ -36,6 +38,19 @@ export const SinglePageGame = (): JSX.Element => {
         }).sort().reverse()
 
         return platformNames
+    }
+
+    const getRatings = () => {
+        const ratings = game?.ratings.map((rating) => {
+            return {
+                id: rating.id,
+                value: rating.count,
+                label: rating.title,
+                percent: rating.percent
+            }
+        })
+
+        return ratings
     }
 
     const metaCriticColor = useMemo(() => {
@@ -64,25 +79,23 @@ export const SinglePageGame = (): JSX.Element => {
         return data
     }
 
-    
+    const TOTAL = game?.ratings?.map((item) => item.percent).reduce((a, b) => a + b, 0);
+
+    const getArcLabel = (params: DefaultizedPieValueType) => {
+        const percent = params.percent / TOTAL;
+        return `${(percent * 100).toFixed(0)}%`;
+    };
+
     return (
         <>
         {game && game.rating &&
-         <div style={{width: '100%', backgroundColor: '#19324f', color: 'white'}}>
-            <div style={{display: 'flex', justifyContent: 'center', paddingTop: 60}}>
-                <div style={{flexDirection: 'column'}}>
-                    <div style={{display: 'flex', paddingBottom: 5, justifyContent: 'space-between'}}>
-                        <h1 style={{fontSize: '2em'}}>{game?.name}</h1>
-                        <div style={{display: 'flex'}}>
-                            <Rating name="read-only" icon={<SportsEsportsIcon style={{width: 40, height: 40}}/>} emptyIcon={<SportsEsportsIcon style={{width: 40, height: 40}}/>} value={game?.rating} precision={0.1} readOnly sx={{color: 'white'}} size="large" />
-                            <Box style={{color: 'white', paddingLeft: 8, fontSize: '2em'}} >{game?.rating?.toFixed(1)}</Box>
-                        </div>
+        <div style={{width: '100%', height: '100%', backgroundColor: '#19324f', color: 'white'}}>
+            <div style={{display: 'flex', margin: 60, backgroundColor: '#214969'}}>
+                <div style={{position: 'relative'}}>
+                    <div style={{position: 'relative', zIndex: 1}}>
+                        <img src={game?.background_image} style={{height: 700, width: 2000}}/>
                     </div>
-                    <div style={{position: 'relative'}}>
-                        <div style={{position: 'relative', zIndex: 1}}>
-                            <img src={game?.background_image} style={{height: 700, width: 1200, borderRadius: 10}}/>
-                        </div>
-                        <div style={{position: 'absolute', zIndex: 2, top: 20, left: 20}}>
+                    <div style={{position: 'absolute', zIndex: 2, top: 20, left: 20}}>
                         {game?.metacritic ?
                             <Avatar style={metaCriticColor} variant="rounded" sx={{fontSize: 40, padding: 5}}>
                                 {game?.metacritic}
@@ -92,34 +105,57 @@ export const SinglePageGame = (): JSX.Element => {
                                     N/A
                             </Avatar>
                         }
-                        </div>
                     </div>
                 </div>
-            </div>
-            <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
-                <div>
-                    <span>Date Released - {game.released}</span>
+                <div style={{width: 500 ,paddingLeft: 15}}>
+                    <div style={{display: 'flex', paddingBottom: 5, flexDirection: 'column'}}>
+                        <h1 style={{fontSize: '2em'}}>{game?.name}</h1>
+                        <div style={{display: 'flex'}}>
+                            <Rating name="read-only" icon={<SportsEsportsIcon style={{width: 40, height: 40}}/>} emptyIcon={<SportsEsportsIcon style={{width: 40, height: 40}}/>} value={game?.rating} precision={0.1} readOnly sx={{color: 'white'}} size="large" />
+                            <Box style={{color: 'white', fontSize: '1.75em', paddingLeft: 5}} >{game?.rating?.toFixed(1)}</Box>
+                        </div>
+                    </div>
+                    <div style={{display: 'flex', flexDirection: 'column', marginTop: 80}}>
+                        <h3 style={{marginLeft: 170, marginBottom: 5}}>Ratings</h3>
+                        <PieChart
+                            colors={['green', 'blue', 'orange', 'red']}
+                            series={[
+                                {
+                                    data: ratings,
+                                    startAngle: -135,
+                                    endAngle: 135,
+                                    paddingAngle: 1,
+                                    innerRadius: 100,
+                                    outerRadius: 200,
+                                    arcLabel: getArcLabel,            
+                                },
+                            ]}
+                            sx={{
+                                [`& .${pieArcLabelClasses.root}`]: {
+                                  fill: 'white',
+                                  fontSize: 15,
+                                },
+                            }}
+                            width={500}
+                            height={400}
+                            legend={{ hidden: true }}
+                        />
+                    </div>
+                    <div>
+                        <h3>Playtime - {game.playtime} Hours</h3>
+                        <h3 style={{marginRight: 10}}>ESRB - {game.esrb_rating.name}</h3>  
+                        <h2>Date Released - {game.released}</h2>
+                    </div>
                 </div>
-                <div>
-                    <h3>Playable on</h3>
-                    {platformsReleasedOn?.map((platform, i) => {
-                        return (
-                            <p key={i} >{platform}</p>
-                        )
-                    })}
-                </div>
-                <div>
-                    <h3>Ratings</h3>
-                    {ratings.map((rating, i) => {
-                        return (
-                            <div key={i}>
-                                <p>{rating.title}</p>
-                                <p>{rating.percent}</p>
-                                <p>{rating.count}</p>
-                                <p>{rating.id}</p>
-                            </div>
-                        )
-                    })}
+                <div style={{textAlign: 'end' ,marginTop: 10, marginRight: 10, width: 500}}>
+                    <h3>Available on</h3>
+                    <div>
+                        {platformsReleasedOn?.map((platform, i) => {
+                            return (
+                                <p key={i} >{platform}</p>
+                            )
+                        })}
+                    </div>
                 </div>
             </div>
         </div>

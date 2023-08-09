@@ -71,6 +71,7 @@ export interface User {
 export interface HomeGame {
     title: string
     image: string
+    name: string
 }
 
 export interface GameRating {
@@ -78,4 +79,11 @@ export interface GameRating {
     id: number
     percent: number
     title: string
+}
+
+export interface ChartRating {
+    id: number
+    value: number
+    label: string
+    percent: number
 }

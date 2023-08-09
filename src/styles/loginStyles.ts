@@ -7,7 +7,7 @@ export const loginStyles: LoginStyles = {
     loginContainer: {
         display: 'flex', 
         justifyContent: 'center', 
-        marginTop: 100,
+        marginTop: 80,
         color: 'white'
     },
     loginFormContainer: {

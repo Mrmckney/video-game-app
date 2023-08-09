@@ -1,5 +1,5 @@
 import { FC, useState, createContext, useEffect } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, Navigate } from 'react-router-dom'
 import { SearchGames } from './components/SearchGame'
 import { Home } from './pages/Home'
 import { Login } from './pages/Login'
@@ -66,13 +66,21 @@ const App: FC = () =>  {
         {successPopUp && <Alert severity='success' onClose={() => {setSuccessPopUp(false)}}>{successMessage}</Alert>}
         <Routes>
           <Route path='/' element={<Home />}/>
-          <Route path='/search' element={<SearchGames />}/>
           <Route path='/login' element={<Login />}/>
-          <Route path='/wishlist' element={<WishList />}/>
           <Route path='/mostplayed' element={<MostPlayedGames />}/>
           <Route path='/topsuggested' element={<TopSuggestedGames />}/>
           <Route path='/toprated' element={<TopRatedGames />}/>
           <Route path='/game/:slug' element={<SinglePageGame />}/>
+          {
+            user ?
+            [ 
+              <Route path='/search' element={<SearchGames />}/>,
+              <Route path='/wishlist' element={<WishList />}/>
+            ]
+            :
+            null
+          }
+          <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
         <footer style={{display: 'flex', justifyContent: 'center', background: '#19324f'}}>
           <a href='https://rawg.io/' style={{textDecoration: 'none', color: 'white'}}>

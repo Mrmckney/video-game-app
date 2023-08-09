@@ -93,29 +93,16 @@ export const NavBar = (): JSX.Element => {
                     transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 >
-                <MenuItem>
-                    <Avatar /> Profile
-                </MenuItem>
-                <MenuItem>
-                    <Avatar /> My account
-                </MenuItem>
-                    <Divider />
-                    <MenuItem>
+                  <MenuItem onClick={() => {
+                    navigate('/')
+                    localStorage.clear()
+                    window.location.reload()
+                  }}>
                     <ListItemIcon>
-                        <Settings fontSize="small" />
+                      <Logout fontSize="small" />
                     </ListItemIcon>
-                    Settings
-                    </MenuItem>
-                    <MenuItem onClick={() => {
-                      navigate('/')
-                      localStorage.clear()
-                      window.location.reload()
-                    }}>
-                    <ListItemIcon>
-                        <Logout fontSize="small" />
-                    </ListItemIcon>
-                    Logout
-                    </MenuItem>
+                      Logout
+                  </MenuItem>
                 </Menu>
             </Box>
             : 

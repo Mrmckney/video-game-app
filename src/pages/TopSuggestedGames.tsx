@@ -13,7 +13,6 @@ export const TopSuggestedGames = (): JSX.Element => {
         const games = async () => {
             const results: Game[] = await topSuggestedFetch()
             setGameData(results)
-            return
         }
         games().then(() => setLoading(false))
     }, [])

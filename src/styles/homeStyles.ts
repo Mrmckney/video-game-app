@@ -7,7 +7,8 @@ type HomeStyles = {
 
 export const homeStyles: HomeStyles = {
     homeContainer: {
-        backgroundColor: '#19324f'
+        backgroundColor: '#19324f',
+        height: '100%'
     },
     homeTitle: {
         display: 'flex', 
@@ -16,7 +17,6 @@ export const homeStyles: HomeStyles = {
     },
     imageList: {
         width: '100%', 
-        height: '100%'
     },
     image: {
         cursor: 'pointer',

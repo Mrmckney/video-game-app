@@ -130,9 +130,9 @@ export const Login = (): JSX.Element => {
                     <Button sx={{marginBottom: 40}} variant='contained' onClick={isLogin ? handleSignIn : handleSignUp} >
                         Submit
                     </Button>
-                    <Button variant='contained' color='inherit' style={{color: 'black'}} onClick={() => setIsLogin(!isLogin)} >
+                    {/* <Button variant='contained' color='inherit' style={{color: 'black'}} onClick={() => setIsLogin(!isLogin)} >
                         Switch to {isLogin ? 'Sign Up' : 'Login'}
-                    </Button>
+                    </Button> */}
             </div>
         </div>
         </>

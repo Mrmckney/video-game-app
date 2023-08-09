@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react"
-import { ImageList, ImageListItem, Button } from "@mui/material";
-import { UserDetailsContext } from "../App";
+import { ImageList, ImageListItem, Button, Tooltip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { UserDetailsContext } from "../App";
 import { homeStyles } from "../styles/homeStyles";
 import { HomeGame } from "../services/appInterfaces";
 
@@ -10,7 +10,7 @@ import { HomeGame } from "../services/appInterfaces";
 export const Home = (): JSX.Element => {
 
     const navigate = useNavigate()
-    const {setErrorPopUp, setErrorMessage, setLoading, loading, user} = useContext(UserDetailsContext)
+    const { setErrorPopUp, setErrorMessage, setLoading, loading, user } = useContext(UserDetailsContext)
     const [games, setGames] = useState<HomeGame[]>([])
 
     useEffect(() => {
@@ -46,16 +46,18 @@ export const Home = (): JSX.Element => {
                 <h1>Welcome to Game Retriever</h1>
             </div>
             {!loading &&
-            <ImageList sx={homeStyles.imageList} cols={10} rowHeight={164}>
-                {games?.map((game: HomeGame) => (
-                    <ImageListItem key={game.image} onClick={() => navigate(`/game/${game.title}`)} sx={homeStyles.image}>
-                        <img
-                            src={`${game.image}?w=164&h=164&fit=crop&auto=format`}
-                            alt={game.title}
-                        />
-                    </ImageListItem>
-                ))}
-            </ImageList>
+                <ImageList sx={homeStyles.imageList} cols={10} rowHeight={164}>
+                    {games?.map((game: HomeGame) => (
+                        <Tooltip title={game.name}>
+                        <ImageListItem key={game.image} onClick={() => navigate(`/game/${game.title}`)} sx={homeStyles.image}>
+                            <img
+                                src={`${game.image}?w=164&h=164&fit=crop`}
+                                alt={game.title}
+                            />
+                        </ImageListItem>
+                        </Tooltip>
+                    ))}
+                </ImageList>
             }
         </div>
     )
