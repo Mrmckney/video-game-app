@@ -22,7 +22,7 @@ export const SearchGames = (): JSX.Element => {
     }
 
     const searchFetch = async () => {
-        const response: Response = await fetch(`http://localhost:4000/search/search?query=${word}`)
+        const response: Response = await fetch(`https://video-game-api-six.vercel.app/search/search?query=${word}`)
         const searchResults = await response.json()
         if (searchResults.status === 500) {
             setErrorPopUp(true)

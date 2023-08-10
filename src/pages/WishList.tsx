@@ -15,7 +15,7 @@ export const WishList = (): JSX.Element => {
     }, [user])
 
     const loadFavorites = async () => {
-        const response = await fetch(`http://localhost:4000/favorites`, {
+        const response = await fetch(`https://video-game-api-six.vercel.app/favorites`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application',
@@ -34,7 +34,7 @@ export const WishList = (): JSX.Element => {
     }
 
     const handleRemoveFav = async (game: Game) => {
-        const response = await fetch(`http://localhost:4000/removefav`, {
+        const response = await fetch(`https://video-game-api-six.vercel.app/removefav`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',

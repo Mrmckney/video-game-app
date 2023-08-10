@@ -30,7 +30,7 @@ export const Login = (): JSX.Element => {
         if(username && password){
             setLoading(true)
             const hashedPassword = bcrypt.hashSync(password, mySalt)
-            const response: Response = await fetch(`http://localhost:4000/login`, {
+            const response: Response = await fetch(`https://video-game-api-six.vercel.app/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

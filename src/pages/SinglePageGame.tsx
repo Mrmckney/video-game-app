@@ -52,7 +52,7 @@ export const SinglePageGame = (): JSX.Element => {
     }, [game])
     
     const fetchSingleGame = async (game: string | undefined) => {
-        const response: Response = await fetch(`http://localhost:4000/game/${game}`)
+        const response: Response = await fetch(`https://video-game-api-six.vercel.app/game/${game}`)
         const data = await response.json()
         if (data.status === 500) {
             setErrorPopUp(true)

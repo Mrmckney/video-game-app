@@ -19,7 +19,7 @@ export const GameList = ({gameData}: GameProps): JSX.Element => {
     }, [user])
 
     const loadFavorites = async () => {
-        const response: Response = await fetch(`http://localhost:4000/favorites`, {
+        const response: Response = await fetch(`https://video-game-api-six.vercel.app/favorites`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application',
@@ -37,7 +37,7 @@ export const GameList = ({gameData}: GameProps): JSX.Element => {
     }
 
     const handleFavorite = async (game: Game) => {
-        const response: Response = await fetch(`http://localhost:4000/addfav`, {
+        const response: Response = await fetch(`https://video-game-api-six.vercel.app/addfav`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ export const GameList = ({gameData}: GameProps): JSX.Element => {
     }  
 
     const handleRemoveFav = async (game: Game) => {
-        const response: Response = await fetch(`http://localhost:4000/removefav`, {
+        const response: Response = await fetch(`https://video-game-api-six.vercel.app/removefav`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',

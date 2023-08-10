@@ -18,7 +18,7 @@ export const TopSuggestedGames = (): JSX.Element => {
     }, [])
 
     const topSuggestedFetch = async () => {
-        const response: Response = await fetch(`http://localhost:4000/topsuggested`)
+        const response: Response = await fetch(`https://video-game-api-six.vercel.app/topsuggested`)
         const data = await response.json()
         if (data.status === 500) {
             setErrorPopUp(true)
