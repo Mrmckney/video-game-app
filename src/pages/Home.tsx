@@ -1,9 +1,9 @@
 import { useState, useContext, useEffect } from "react"
-import { ImageList, ImageListItem, Button, Tooltip } from "@mui/material";
+import { ImageList, ImageListItem, Tooltip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { UserDetailsContext } from "../App";
-import { homeStyles } from "../styles/homeStyles";
 import { HomeGame } from "../services/appInterfaces";
+import { homeStyles } from "../styles/homeStyles";
 
 
 
@@ -30,14 +30,6 @@ export const Home = (): JSX.Element => {
             throw new Error(searchResults.message)
         }
         return searchResults
-    }
-
-    const refreshPreset = async () => {
-        setLoading(true)
-        loadPreset().then((data: HomeGame[]) => {
-            setGames(data)
-            setLoading(false)
-        })
     }
 
     return (

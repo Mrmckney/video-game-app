@@ -1,12 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { AppBar, Box, Toolbar, Typography, IconButton, Avatar, Menu, MenuItem, ListItemIcon, Divider, Tooltip, Button } from '@mui/material'
-import MenuIcon from '@mui/icons-material/Menu';
-import Settings from '@mui/icons-material/Settings';
-import Logout from '@mui/icons-material/Logout';
-import { MenuDrawer } from './MenuDrawer';
-import { UserDetailsContext } from '../App';
 import { useNavigate } from 'react-router-dom';
+import { AppBar, Box, Toolbar, IconButton, Avatar, Menu, MenuItem, ListItemIcon, Divider, Tooltip, Button } from '@mui/material'
+import MenuIcon from '@mui/icons-material/Menu';
+import Logout from '@mui/icons-material/Logout';
 import HouseIcon from '@mui/icons-material/House';
+import { UserDetailsContext } from '../App';
+import { MenuDrawer } from './MenuDrawer';
 
 export const NavBar = (): JSX.Element => {
 

@@ -1,12 +1,9 @@
-import { useEffect, useState, useContext, useMemo, useCallback } from "react"
+import { useEffect, useState, useContext, useMemo } from "react"
 import { useParams } from "react-router-dom"
-import { DefaultizedPieValueType } from '@mui/x-charts';
-import { Game } from "../services/appInterfaces"
 import { Rating, Box, Avatar } from "@mui/material";
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import { UserDetailsContext } from "../App";
-import { ChartRating } from "../services/appInterfaces";
-import { PieChart, pieArcLabelClasses } from "@mui/x-charts";
+import { Game } from "../services/appInterfaces"
 import '../styles/single-page.scss'
 
 export const SinglePageGame = (): JSX.Element => {
@@ -14,7 +11,6 @@ export const SinglePageGame = (): JSX.Element => {
     const {setErrorPopUp, setErrorMessage, setLoading} = useContext(UserDetailsContext)
     const [game, setGame] = useState<Game>({} as Game)
     const [platformsReleasedOn, setPlatformsReleasedOn] = useState<(string | undefined)[]>([])
-    const [ratings, setRatings] = useState<ChartRating[]>([])
     
     useEffect(() => {
         setLoading(true)
@@ -29,7 +25,6 @@ export const SinglePageGame = (): JSX.Element => {
     useEffect(() => {
         if (game.name) {
             setPlatformsReleasedOn(getPlatforms())
-            setRatings(getRatings())
         }
     }, [game])
 
@@ -39,19 +34,6 @@ export const SinglePageGame = (): JSX.Element => {
         }).sort().reverse()
 
         return platformNames
-    }
-
-    const getRatings = () => {
-        const ratings = game?.ratings.map((rating) => {
-            return {
-                id: rating.id,
-                value: rating.count,
-                label: rating.title,
-                percent: rating.percent
-            }
-        })
-
-        return ratings
     }
 
     const metaCriticColor = useMemo(() => {
@@ -79,13 +61,6 @@ export const SinglePageGame = (): JSX.Element => {
         }
         return data
     }
-
-    const TOTAL = game?.ratings?.map((item) => item.percent).reduce((a, b) => a + b, 0);
-
-    const getArcLabel = (params: DefaultizedPieValueType) => {
-        const percent = params.percent / TOTAL;
-        return `${(percent * 100).toFixed(0)}%`;
-    };
 
     return (
         <>

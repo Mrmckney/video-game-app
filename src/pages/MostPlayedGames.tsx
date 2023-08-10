@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react"
+import { UserDetailsContext } from "../App";
 import { GameList } from "../components/GameList";
 import { Game } from "../services/appInterfaces";
-import { UserDetailsContext } from "../App";
 
 export const MostPlayedGames = (): JSX.Element => {
 

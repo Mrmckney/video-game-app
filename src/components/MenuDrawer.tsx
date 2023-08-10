@@ -1,13 +1,13 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserDetailsContext } from '../App';
-import { DrawerProps } from '../services/propTypes';
 import { Modal, Box, Typography, Button, Drawer, List, Divider, ListItem, ListItemButton, ListItemIcon, ListItemText} from '@mui/material';
 import GradeIcon from '@mui/icons-material/Grade';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import SearchIcon from '@mui/icons-material/Search';
+import { UserDetailsContext } from '../App';
+import { DrawerProps } from '../services/propTypes';
 
 
 

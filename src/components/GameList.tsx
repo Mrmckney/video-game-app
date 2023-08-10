@@ -1,14 +1,14 @@
-import { useContext, useEffect, useState } from "react";
-import { Game } from "../services/appInterfaces";
+import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardActions, CardContent, CardMedia, Button, Typography, Rating, Box } from "@mui/material";
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import { UserDetailsContext } from "../App";
+import { Game } from "../services/appInterfaces";
 import { GameProps } from "../services/propTypes";
 import { gameListStyles } from "../styles/gameListStyles";
-import { UserDetailsContext } from "../App";
-import { useNavigate } from "react-router-dom";
 
 export const GameList = ({gameData}: GameProps): JSX.Element => {
-
+    
     const navigate = useNavigate()
     const {user, setFavData, favData, setErrorMessage, setErrorPopUp, setSuccessMessage, setSuccessPopUp} = useContext(UserDetailsContext)
 
