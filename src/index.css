@@ -74,10 +74,14 @@ select {
 }
 
 #root {
-  height: 100vh;
+  height: 100%;
   width: 100%;
+  background-color: #19324f;
 }
 
-html * {
+html {
+  height: 100%;
+  width: 100%;
   font-family: Nunito, sans-serif;
+  background-color: #19324f;
 }

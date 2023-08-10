@@ -17,8 +17,5 @@ export const loginStyles: LoginStyles = {
         justifyContent: 'center', 
         flexDirection: 'column', 
         alignItems: 'center', 
-        borderStyle: 'solid', 
-        borderRadius: 20,
-        borderWidth: 5
     }
 }

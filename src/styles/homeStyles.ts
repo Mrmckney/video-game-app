@@ -12,7 +12,8 @@ export const homeStyles: HomeStyles = {
     },
     homeTitle: {
         display: 'flex', 
-        justifyContent: 'center', 
+        justifyContent: 'center',
+        textAlign: 'center',
         color: 'white'
     },
     imageList: {

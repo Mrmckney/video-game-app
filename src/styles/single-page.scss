@@ -1,0 +1,14 @@
+.single-page-container {
+    width: 100%;
+    height: 100%;
+    background-color: #19324f;
+    color: white;
+
+    .game-container {
+        display: flex;
+        margin: 50px;
+        background-color: #214969;
+        justify-content: center;
+        flex-direction: column;
+    }
+}

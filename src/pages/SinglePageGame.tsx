@@ -7,6 +7,7 @@ import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import { UserDetailsContext } from "../App";
 import { ChartRating } from "../services/appInterfaces";
 import { PieChart, pieArcLabelClasses } from "@mui/x-charts";
+import '../styles/single-page.scss'
 
 export const SinglePageGame = (): JSX.Element => {
     const params = useParams()
@@ -89,11 +90,11 @@ export const SinglePageGame = (): JSX.Element => {
     return (
         <>
         {game && game.rating &&
-        <div style={{width: '100%', height: '100%', backgroundColor: '#19324f', color: 'white'}}>
-            <div style={{display: 'flex', margin: 60, backgroundColor: '#214969'}}>
+        <div className="single-page-container">
+            <div className="game-container">
                 <div style={{position: 'relative'}}>
                     <div style={{position: 'relative', zIndex: 1}}>
-                        <img src={game?.background_image} style={{height: 700, width: 2000}}/>
+                        <img src={game?.background_image} style={{height: '100%', width: '100%'}}/>
                     </div>
                     <div style={{position: 'absolute', zIndex: 2, top: 20, left: 20}}>
                         {game?.metacritic ?
@@ -107,7 +108,7 @@ export const SinglePageGame = (): JSX.Element => {
                         }
                     </div>
                 </div>
-                <div style={{width: 500 ,paddingLeft: 15}}>
+                <div style={{paddingLeft: 15}}>
                     <div style={{display: 'flex', paddingBottom: 5, flexDirection: 'column'}}>
                         <h2>{game?.name}</h2>
                         <div style={{display: 'flex'}}>
@@ -115,47 +116,22 @@ export const SinglePageGame = (): JSX.Element => {
                             <Box style={{color: 'white', fontSize: '1.75em', paddingLeft: 5}} >{game?.rating?.toFixed(1)}</Box>
                         </div>
                     </div>
-                    <div style={{display: 'flex', flexDirection: 'column', marginTop: 40}}>
-                        <h3 style={{marginLeft: 170, marginBottom: 5}}>Ratings</h3>
-                        <PieChart
-                            colors={['green', 'blue', 'orange', 'red']}
-                            series={[
-                                {
-                                    data: ratings,
-                                    startAngle: -135,
-                                    endAngle: 135,
-                                    paddingAngle: 1,
-                                    innerRadius: 100,
-                                    outerRadius: 200,
-                                    arcLabel: getArcLabel,         
-                                },
-                            ]}
-                            sx={{
-                                [`& .${pieArcLabelClasses.root}`]: {
-                                  fill: 'white',
-                                  fontSize: 15,
-                                },
-                            }}
-                            width={500}
-                            height={400}
-                            legend={{ hidden: true }}
-                        />
-                    </div>
-                    <div style={{marginTop: 50}}>
-                        <h3>Playtime - {game?.playtime ?? 'N/A'} Hours</h3>
-                        <h3 style={{marginRight: 10}}>ESRB - {game?.esrb_rating?.name ?? 'N/A'}</h3>  
-                        <h2>Date Released - {game?.released ?? 'N/A'}</h2>
-                    </div>
-                </div>
-                <div style={{textAlign: 'end', marginTop: 10, marginRight: 10, width: 500}}>
-                    <h3>Available on</h3>
                     <div>
-                        {platformsReleasedOn?.map((platform, i) => {
-                            return (
-                                <p key={i} >{platform}</p>
-                            )
-                        })}
+                        <h4>Date Released - {game?.released ?? 'N/A'}</h4>
+                        <h3>Playtime - {game?.playtime ?? 'N/A'} Hours</h3>
+                        <h3>ESRB - {game?.esrb_rating?.name ?? 'N/A'}</h3>  
                     </div>
+                    <div style={{marginTop: 10, marginBottom: 10}}>
+                        <h3>Available on</h3>
+                        <div>
+                            {platformsReleasedOn?.map((platform, i) => {
+                                return (
+                                    <p key={i} >{platform}</p>
+                                )
+                            })}
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>

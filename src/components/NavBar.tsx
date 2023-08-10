@@ -6,6 +6,7 @@ import Logout from '@mui/icons-material/Logout';
 import { MenuDrawer } from './MenuDrawer';
 import { UserDetailsContext } from '../App';
 import { useNavigate } from 'react-router-dom';
+import HouseIcon from '@mui/icons-material/House';
 
 export const NavBar = (): JSX.Element => {
 
@@ -39,9 +40,9 @@ export const NavBar = (): JSX.Element => {
             >
               <MenuIcon/>
             </IconButton>
-            <Typography onClick={() => navigate('/')} style={{cursor: 'pointer'}} variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Game Retriever
-            </Typography>
+            <IconButton onClick={() => navigate('/')} style={{cursor: 'pointer'}} component="div" sx={{ flexGrow: 1 }}>
+              <HouseIcon fontSize='large'/>
+            </IconButton>
             {user ? 
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
                 <Tooltip title="Account">
