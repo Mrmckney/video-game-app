@@ -11,4 +11,13 @@
         justify-content: center;
         flex-direction: column;
     }
+
+    .metacritic {
+        font-size: 40px;
+        padding: 40px;
+        @media screen and (max-width: 800px) {
+            font-size: 25px;
+            padding: 25px;
+        }
+    }
 }

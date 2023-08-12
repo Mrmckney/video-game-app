@@ -91,9 +91,10 @@ export const GameList = ({gameData}: GameProps): JSX.Element => {
                         height="300"
                         image={game.background_image}
                         alt="green iguana"
+                        onClick={() => navigate(`/game/${game.slug}`)}
                     />
                     <CardContent>
-                        <Typography gutterBottom variant="h5" component="div" sx={{color: 'white'}}>
+                        <Typography gutterBottom component="div" sx={{color: 'white'}}>
                             {game.name}
                         </Typography>
                         <div style={{display: 'flex', paddingBottom: 5}}>

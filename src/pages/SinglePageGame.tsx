@@ -1,12 +1,13 @@
 import { useEffect, useState, useContext, useMemo } from "react"
-import { useParams } from "react-router-dom"
-import { Rating, Box, Avatar } from "@mui/material";
+import { useParams, useNavigate } from "react-router-dom"
+import { Rating, Box, Avatar, Button } from "@mui/material";
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import { UserDetailsContext } from "../App";
 import { Game } from "../services/appInterfaces"
 import '../styles/single-page.scss'
 
 export const SinglePageGame = (): JSX.Element => {
+    const navigate = useNavigate()
     const params = useParams()
     const {setErrorPopUp, setErrorMessage, setLoading} = useContext(UserDetailsContext)
     const [game, setGame] = useState<Game>({} as Game)
@@ -73,7 +74,7 @@ export const SinglePageGame = (): JSX.Element => {
                     </div>
                     <div style={{position: 'absolute', zIndex: 2, top: 20, left: 20}}>
                         {game?.metacritic ?
-                            <Avatar style={metaCriticColor} variant="rounded" sx={{fontSize: 40, padding: 5}}>
+                            <Avatar style={metaCriticColor} variant="rounded" className="metacritic">
                                 {game?.metacritic}
                             </Avatar>
                         :
@@ -106,7 +107,7 @@ export const SinglePageGame = (): JSX.Element => {
                             })}
                         </div>
                     </div>
-                    
+                    <Button style={{marginBottom: 10}} variant="contained" onClick={() => navigate(-1)}>Go back</Button>
                 </div>
             </div>
         </div>
